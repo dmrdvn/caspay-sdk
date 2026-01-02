@@ -8,7 +8,7 @@ export class HttpClient {
   private baseUrl: string;
   private apiKey: string;
   private merchantId: string;
-  private readonly SDK_VERSION = '1.0.0';
+  private readonly SDK_VERSION = '1.0.1';
 
   constructor(config: CasPayConfig) {
     // Use production API by default
