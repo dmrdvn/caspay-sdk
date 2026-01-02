@@ -1,0 +1,13 @@
+# Source files (only ship dist/)
+src/
+tsconfig.json
+rollup.config.js
+
+# Development
+.gitignore
+*.log
+
+# Tests
+tests/
+*.test.ts
+*.spec.ts
