@@ -40,7 +40,7 @@ export default class CasPay {
    * Get SDK version
    */
   static get version(): string {
-    return '1.0.0';
+    return '1.0.4';
   }
 }
 

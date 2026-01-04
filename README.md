@@ -18,7 +18,7 @@ yarn add @caspay/sdk
 ### CDN (WordPress, HTML)
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.0.1/dist/caspay.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.0.4/dist/caspay.min.js"></script>
 ```
 
 ## 📖 Quick Start
@@ -47,7 +47,7 @@ console.log('Payment successful:', payment);
 ### WordPress / HTML
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.0.1/dist/caspay.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.0.4/dist/caspay.min.js"></script>
 
 <button id="payBtn">Pay Now</button>
 
@@ -77,7 +77,6 @@ console.log('Payment successful:', payment);
 const caspay = new CasPay({
   apiKey: string;        // Required: Your CasPay API key
   merchantId: string;    // Required: Your merchant ID
-  baseUrl?: string;      // Optional: API base URL (default: https://api.caspay.link)
 });
 ```
 
@@ -194,7 +193,7 @@ Full TypeScript support with type definitions included:
 import CasPay, { PaymentCreateParams, PaymentResponse } from '@caspay/sdk';
 
 const params: PaymentCreateParams = {
-  senderAddress: '0x123...',
+  senderAddress: '0123...',
   productId: 'prod_abc',
   amount: 100
 };

@@ -6,8 +6,6 @@ export interface CasPayConfig {
   apiKey: string;
   /** Your merchant ID (starts with MERCH_) */
   merchantId: string;
-  /** Optional: Override API base URL (default: https://api.caspay.link) */
-  baseUrl?: string;
 }
 
 /**

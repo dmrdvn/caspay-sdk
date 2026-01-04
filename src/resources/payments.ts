@@ -67,7 +67,7 @@ export class Payments {
 
     return this.client.request<PaymentResponse>(
       'POST',
-      '/api/v1/payments/record',
+      '/v1/payments/record',
       payload
     );
   }

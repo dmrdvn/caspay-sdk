@@ -5,14 +5,12 @@ import type { CasPayConfig, CasPayError } from '../types';
  * Handles all API requests with authentication and error handling
  */
 export class HttpClient {
-  private baseUrl: string;
+  private readonly baseUrl: string = 'https://caspay.link/api';
   private apiKey: string;
   private merchantId: string;
-  private readonly SDK_VERSION = '1.0.1';
+  private readonly SDK_VERSION = '1.0.4';
 
   constructor(config: CasPayConfig) {
-    // Use production API by default
-    this.baseUrl = config.baseUrl || 'https://api.caspay.link';
     this.apiKey = config.apiKey;
     this.merchantId = config.merchantId;
 
