@@ -11,3 +11,4 @@ rollup.config.js
 tests/
 *.test.ts
 *.spec.ts
+.npmrc
