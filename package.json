@@ -1,12 +1,19 @@
 {
   "name": "@caspay/sdk",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Official CasPay JavaScript/TypeScript SDK - Accept crypto payments with Casper blockchain",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "browser": "dist/caspay.min.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./browser": "./dist/caspay.min.js"
+  },
   "files": [
     "dist",
     "README.md",
