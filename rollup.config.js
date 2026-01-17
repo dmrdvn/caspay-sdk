@@ -1,7 +1,8 @@
 import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
+import json from '@rollup/plugin-json';
+import terser from '@rollup/plugin-terser';
 
 export default [
   // CommonJS (Node.js)
@@ -10,9 +11,10 @@ export default [
     output: {
       file: 'dist/index.js',
       format: 'cjs',
-      exports: 'auto'
+      exports: 'named'
     },
-    plugins: [typescript(), resolve(), commonjs()]
+    external: ['casper-js-sdk'],
+    plugins: [typescript(), resolve(), commonjs(), json()]
   },
   // ESM (React/Next.js)
   {
@@ -21,16 +23,28 @@ export default [
       file: 'dist/index.esm.js',
       format: 'es'
     },
-    plugins: [typescript(), resolve(), commonjs()]
+    external: ['casper-js-sdk'],
+    plugins: [typescript(), resolve(), commonjs(), json()]
   },
-  // UMD (WordPress Browser)
+  // UMD (Browser - includes all dependencies)
   {
     input: 'src/browser.ts',
     output: {
       file: 'dist/caspay.min.js',
       format: 'umd',
-      name: 'CasPay'
+      name: 'CasPay',
+      exports: 'default',
+      globals: {}
     },
-    plugins: [typescript(), resolve(), commonjs(), terser()]
+    plugins: [
+      typescript(),
+      resolve({
+        browser: true,
+        preferBuiltins: false
+      }),
+      commonjs(),
+      json(),
+      terser()
+    ]
   }
 ];

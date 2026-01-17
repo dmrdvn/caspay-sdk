@@ -1,20 +1,16 @@
+import { SDK_VERSION } from '../version';
 import type { CasPayConfig, CasPayError } from '../types';
 
-/**
- * HTTP Client for CasPay API
- * Handles all API requests with authentication and error handling
- */
 export class HttpClient {
-  private readonly baseUrl: string = 'https://caspay.link/api';
+  private readonly baseUrl: string;
   private apiKey: string;
   private merchantId: string;
-  private readonly SDK_VERSION = '1.0.4';
 
   constructor(config: CasPayConfig) {
     this.apiKey = config.apiKey;
     this.merchantId = config.merchantId;
+    this.baseUrl = config.baseUrl || 'https://caspay.link/api';
 
-    // Validate required config
     if (!this.apiKey) {
       throw new Error('CasPay SDK: apiKey is required');
     }
@@ -36,8 +32,8 @@ export class HttpClient {
         headers: {
           'Content-Type': 'application/json',
           'X-CasPay-Key': this.apiKey,
-          'X-CasPay-SDK-Version': this.SDK_VERSION,
-          'User-Agent': `CasPay-SDK-JS/${this.SDK_VERSION}`,
+          'X-CasPay-SDK-Version': SDK_VERSION,
+          'User-Agent': `CasPay-SDK-JS/${SDK_VERSION}`,
         },
         body: body ? JSON.stringify(body) : undefined,
       });
@@ -55,11 +51,9 @@ export class HttpClient {
 
       return data;
     } catch (error: any) {
-      // Re-throw CasPay errors
       if (error.error && error.code) {
         throw error;
       }
-      // Wrap network errors
       throw {
         error: error.message || 'Network error',
         code: 'NETWORK_ERROR',
@@ -70,5 +64,9 @@ export class HttpClient {
 
   getMerchantId(): string {
     return this.merchantId;
+  }
+
+  getBaseUrl(): string {
+    return this.baseUrl;
   }
 }

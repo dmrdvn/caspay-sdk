@@ -1,50 +1,28 @@
-/**
- * CasPay SDK Configuration
- */
 export interface CasPayConfig {
-  /** Your CasPay API key (starts with cp_live_ or cp_test_) */
   apiKey: string;
-  /** Your merchant ID (starts with MERCH_) */
   merchantId: string;
+  walletAddress: string;
+  network?: 'mainnet' | 'testnet';
+  baseUrl?: string;
 }
 
-/**
- * Payment Creation Parameters
- */
 export interface PaymentCreateParams {
-  /** Sender's Casper wallet address */
   senderAddress: string;
-  /** Optional: Casper transaction hash (auto-generated in mock mode) */
   transactionHash?: string;
-  /** Product ID for one-time payments */
   productId?: string;
-  /** Subscription plan ID for recurring payments */
   subscriptionPlanId?: string;
-  /** Payment amount */
   amount: number;
-  /** Currency code (default: USD) */
   currency?: string;
 }
 
-/**
- * Subscription Creation Parameters
- */
 export interface SubscriptionCreateParams {
-  /** Subscriber's Casper wallet address */
   senderAddress: string;
-  /** Optional: Casper transaction hash */
   transactionHash?: string;
-  /** Subscription plan ID */
   planId: string;
-  /** Payment amount */
   amount: number;
-  /** Currency code (default: USD) */
   currency?: string;
 }
 
-/**
- * Payment Response
- */
 export interface PaymentResponse {
   success: boolean;
   payment: {
@@ -65,9 +43,6 @@ export interface PaymentResponse {
   responseTime?: string;
 }
 
-/**
- * Subscription Response
- */
 export interface SubscriptionResponse {
   success: boolean;
   payment: {
@@ -79,11 +54,71 @@ export interface SubscriptionResponse {
   subscription_id?: string;
 }
 
-/**
- * API Error Response
- */
 export interface CasPayError {
   error: string;
   code: string;
   status?: number;
+}
+
+export interface MakePaymentParams {
+  productId?: string;
+  subscriptionPlanId?: string;
+  amount: number;
+  currency?: string;
+}
+
+export interface MakePaymentResult {
+  success: boolean;
+  transactionHash: string;
+  payment?: PaymentResponse;
+  error?: string;
+}
+
+export interface WalletState {
+  connected: boolean;
+  address: string | null;
+  locked: boolean;
+}
+
+export interface WalletInfo {
+  isConnected: boolean;
+  address: string | null;
+}
+
+export interface WalletError {
+  code: 'WALLET_NOT_FOUND' | 'WALLET_LOCKED' | 'CONNECTION_REJECTED' | 'TRANSFER_REJECTED' | 'NETWORK_ERROR' | 'UNKNOWN_ERROR';
+  message: string;
+  installUrl?: string;
+}
+
+export interface TransferParams {
+  recipientAddress: string;
+  amount: number;
+}
+
+export interface TransferResult {
+  deployHash: string;
+  senderAddress: string;
+  recipientAddress: string;
+  amount: number;
+}
+
+export interface SubscriptionCheckParams {
+  subscriberAddress: string;
+  planId?: string;
+}
+
+export interface SubscriptionCheckResponse {
+  success: boolean;
+  active: boolean;
+  subscriptions?: Array<{
+    id: string;
+    plan_id: string;
+    subscriber_address: string;
+    status: string;
+    current_period_start: string;
+    current_period_end: string;
+    created_at: string;
+  }>;
+  message?: string;
 }
