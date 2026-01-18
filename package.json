@@ -1,6 +1,6 @@
 {
   "name": "@caspay/sdk",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Official CasPay JavaScript/TypeScript SDK - Accept crypto payments with Casper blockchain",
   "type": "module",
   "main": "dist/index.js",

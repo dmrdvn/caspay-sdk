@@ -7,6 +7,7 @@ export class Wallet {
   private config: CasPayConfig;
   private connected: boolean = false;
   private activeAddress: string | null = null;
+  private activeNetwork: string | null = null;
 
   constructor(config: CasPayConfig) {
     this.config = config;
@@ -31,6 +32,9 @@ export class Wallet {
         const state = JSON.parse(event.detail);
         this.connected = true;
         this.activeAddress = state.activeKey || null;
+        if (state.activeNetwork) {
+          this.activeNetwork = state.activeNetwork;
+        }
       } catch (e) {
       }
     });
@@ -38,12 +42,21 @@ export class Wallet {
     window.addEventListener('casper-wallet:disconnected', () => {
       this.connected = false;
       this.activeAddress = null;
+      this.activeNetwork = null;
     });
 
     window.addEventListener('casper-wallet:activeKeyChanged', (event: any) => {
       try {
         const state = JSON.parse(event.detail);
         this.activeAddress = state.activeKey || null;
+      } catch (e) {
+      }
+    });
+
+    window.addEventListener('casper-wallet:activeNetworkChanged', (event: any) => {
+      try {
+        const state = JSON.parse(event.detail);
+        this.activeNetwork = state.activeNetwork || state;
       } catch (e) {
       }
     });
@@ -216,15 +229,22 @@ export class Wallet {
   }
 
   async getActiveNetwork(): Promise<string> {
+    if (this.activeNetwork) {
+      return this.activeNetwork;
+    }
+
     if (!this.provider) {
       return this.getNetwork();
     }
 
     try {
-      const network = await this.provider.getActiveNetwork?.();
-      if (network) {
-        // 'casper' or 'casper-test'
-        return network;
+      const state = await this.provider.getActivePublicKey();
+      if (state) {
+        const providerState = (window as any).CasperWalletState;
+        if (providerState?.activeNetwork) {
+          this.activeNetwork = providerState.activeNetwork;
+          return providerState.activeNetwork;
+        }
       }
     } catch (error) {
     }
