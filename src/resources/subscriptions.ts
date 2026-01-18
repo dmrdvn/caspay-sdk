@@ -18,7 +18,7 @@ export class Subscriptions {
     }
 
     const merchantId = this.client.getMerchantId();
-    let url = `/v1/subscriptions/check/?merchant_id=${merchantId}&subscriber=${params.subscriberAddress}`;
+    let url = `/v1/subscriptions/check?merchant_id=${merchantId}&subscriber=${params.subscriberAddress}`;
     
     if (params.planId) {
       url += `&plan_id=${params.planId}`;

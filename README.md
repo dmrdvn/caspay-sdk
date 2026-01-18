@@ -28,7 +28,7 @@ yarn add @caspay/sdk
 ### CDN (PHP, HTML)
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.1.2/dist/caspay.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.1.3/dist/caspay.min.js"></script>
 ```
 
 > **Note**: Users only need to install **Casper Wallet browser extension**. No additional dependencies required.
@@ -67,7 +67,7 @@ const subResult = await caspay.payments.makePayment({
 #### PHP / Vanilla JS
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.1.2/dist/caspay.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@caspay/sdk@1.1.3/dist/caspay.min.js"></script>
 
 <button id="payBtn">Pay 10 CSPR</button>
 
