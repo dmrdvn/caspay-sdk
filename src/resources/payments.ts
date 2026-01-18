@@ -97,6 +97,8 @@ export class Payments {
     }
 
     try {
+      await this.client.validateApiKey();
+
       const isConnected = await this.wallet.isConnected();
       if (!isConnected) {
         await this.wallet.connect();
@@ -134,10 +136,11 @@ export class Payments {
           payment: paymentRecord,
         };
       } catch (recordError: any) {
-        return {
-          success: true,
-          transactionHash: transferResult.deployHash,
+        throw {
           error: `Payment transferred but recording failed: ${recordError.error || recordError.message}`,
+          code: 'RECORDING_FAILED',
+          status: recordError.status || 500,
+          transactionHash: transferResult.deployHash,
         };
       }
     } catch (error: any) {

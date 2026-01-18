@@ -69,4 +69,37 @@ export class HttpClient {
   getBaseUrl(): string {
     return this.baseUrl;
   }
+
+  async validateApiKey(): Promise<void> {
+    const url = `${this.baseUrl}/v1/validate-key`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-CasPay-Key': this.apiKey,
+          'X-CasPay-SDK-Version': SDK_VERSION,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.valid) {
+        throw {
+          error: data.error || 'Invalid API key',
+          code: 'INVALID_API_KEY',
+          status: response.status,
+        } as CasPayError;
+      }
+    } catch (error: any) {
+      if (error.code === 'INVALID_API_KEY') {
+        throw error;
+      }
+      throw {
+        error: error.message || 'API key validation failed',
+        code: 'VALIDATION_ERROR',
+        status: 0,
+      } as CasPayError;
+    }
+  }
 }
