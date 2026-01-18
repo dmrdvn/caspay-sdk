@@ -215,6 +215,23 @@ export class Wallet {
     return this.config.network === 'mainnet' ? 'casper' : 'casper-test';
   }
 
+  async getActiveNetwork(): Promise<string> {
+    if (!this.provider) {
+      return this.getNetwork();
+    }
+
+    try {
+      const network = await this.provider.getActiveNetwork?.();
+      if (network) {
+        // 'casper' or 'casper-test'
+        return network;
+      }
+    } catch (error) {
+    }
+
+    return this.getNetwork();
+  }
+
   async signDeploy(deploy: any): Promise<any> {
     if (!this.provider) {
       const error: WalletError = {
