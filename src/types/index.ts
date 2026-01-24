@@ -106,6 +106,7 @@ export interface TransferResult {
 export interface SubscriptionCheckParams {
   subscriberAddress: string;
   planId?: string;
+  network?: 'testnet' | 'mainnet';
 }
 
 export interface SubscriptionCheckResponse {

@@ -1,11 +1,13 @@
 import type { HttpClient } from '../core/client';
-import type { SubscriptionCheckParams, SubscriptionCheckResponse } from '../types';
+import type { SubscriptionCheckParams, SubscriptionCheckResponse, CasPayConfig } from '../types';
 
 export class Subscriptions {
   private client: HttpClient;
+  private config: CasPayConfig;
 
-  constructor(client: HttpClient) {
+  constructor(client: HttpClient, config: CasPayConfig) {
     this.client = client;
+    this.config = config;
   }
 
   async checkStatus(params: SubscriptionCheckParams): Promise<SubscriptionCheckResponse> {
@@ -18,7 +20,9 @@ export class Subscriptions {
     }
 
     const merchantId = this.client.getMerchantId();
-    let url = `/v1/subscriptions/check?merchant_id=${merchantId}&subscriber=${params.subscriberAddress}`;
+    const network = params.network || this.config.network || 'testnet';
+    
+    let url = `/v1/subscriptions/check?merchant_id=${merchantId}&subscriber=${params.subscriberAddress}&network=${network}`;
     
     if (params.planId) {
       url += `&plan_id=${params.planId}`;

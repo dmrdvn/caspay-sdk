@@ -29,7 +29,7 @@ export default class CasPay {
     this.payments = new Payments(this.client);
     this.payments.setWallet(this.wallet, this.transfer);
     
-    this.subscriptions = new Subscriptions(this.client);
+    this.subscriptions = new Subscriptions(this.client, config);
   }
 
   static get version(): string {
