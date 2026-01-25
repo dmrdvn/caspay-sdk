@@ -424,6 +424,34 @@ const result: MakePaymentResult = await caspay.payments.makePayment(params);
 | Subscription Tracking | ✅ Yes | ✅ Yes |
 | **Best For** | Simple integration | Custom wallet UX |
 
+## 💡 Real-World Use Cases
+
+### 👉 CasPay SDK (One-Time + Subscriptions)
+
+**Product (One-Time):**
+- **NFTs & blockchain assets** - Minting, marketplace sales, in-game items
+- **Gaming items** - Characters, skins, power-ups, currency packs
+- **Digital products** - E-books, templates, code, design assets
+- **Services** - One-time consulting, freelance work, audits
+
+**Subscription:**
+- **NFT memberships & dynamic NFTs** - Exclusive access, evolving NFTs
+- **Gaming subscriptions** - Battle pass, VIP, season pass, tournaments
+- **Content platforms** - Music, video, newsletters, courses
+- **SaaS & tools** - Analytics, trading bots, portfolio trackers, dev tools
+- **Community access** - Private groups, DAO membership, mentorship
+
+### 👉 PayLinks (One-Time Payments)
+
+- **Digital downloads** - PDF, software, design files, music, video, templates
+- **License keys** - Software, games, plugins, API keys
+- **Service access** - Online courses, webinars, private Discord/Telegram, consulting
+- **Coupons & vouchers** - Discount codes, gift cards, promo codes
+- **Event tickets** - Webinars, virtual conferences, workshops
+- **Content access** - Premium articles, videos, research reports
+- **Custom messages** - Donation thanks, order instructions, manual sales
+- **Donations & tips** - Project support, community funding
+
 ## 🔗 Links
 
 - **Documentation:** [docs.caspay.link](https://docs.caspay.link)
